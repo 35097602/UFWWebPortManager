@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UFW Port Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+  <div class="bg"></div>
+  <main class="app">
+    <header>
+      <h1>UFW 端口管理</h1>
+      <p>Linux 防火墙端口开关面板</p>
+    </header>
+
+    <section id="loginCard" class="card">
+      <h2>管理员登录</h2>
+      <div class="login-grid">
+        <label>
+          用户名
+          <input id="username" type="text" autocomplete="username" placeholder="admin" />
+        </label>
+        <label>
+          密码
+          <input id="password" type="password" autocomplete="current-password" placeholder="请输入密码" />
+        </label>
+      </div>
+      <div class="actions">
+        <button id="loginBtn" class="btn btn-primary">登录</button>
+      </div>
+      <div id="loginNotice" class="notice hidden" role="status" aria-live="polite"></div>
+    </section>
+
+    <section id="panelCard" class="card hidden">
+      <div class="toolbar">
+        <strong id="currentUser">已登录</strong>
+        <button id="logoutBtn" class="btn btn-ghost">退出登录</button>
+      </div>
+
+      <div class="ufw-status-box">
+        <div class="ufw-status-left">
+          <span class="ufw-title">当前 UFW 状态</span>
+          <span id="ufwStateBadge" class="ufw-badge ufw-badge-off">未知</span>
+          <small id="ufwStateText" class="ufw-state-text">等待读取...</small>
+        </div>
+        <div class="actions ufw-actions">
+          <button id="enableUfwBtn" class="btn btn-primary">开启 UFW</button>
+          <button id="disableUfwBtn" class="btn btn-danger">关闭 UFW</button>
+        </div>
+      </div>
+
+      <div class="grid">
+        <label>
+          端口
+          <textarea id="ports" rows="3" placeholder="例如: 22,80,443"></textarea>
+        </label>
+        <label>
+          协议
+          <select id="protocol">
+            <option value="tcp">TCP</option>
+            <option value="udp">UDP</option>
+            <option value="both">TCP + UDP</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="openBtn" class="btn btn-primary">开放端口</button>
+        <button id="closeBtn" class="btn btn-danger">关闭端口</button>
+        <button id="refreshBtn" class="btn btn-ghost">刷新规则</button>
+      </div>
+
+      <div class="quick">
+        <span>快捷端口:</span>
+        <button class="chip" data-port="22">SSH 22</button>
+        <button class="chip" data-port="80">HTTP 80</button>
+        <button class="chip" data-port="443">HTTPS 443</button>
+        <button class="chip" data-port="3306">MySQL 3306</button>
+      </div>
+    </section>
+
+    <section id="rulesCard" class="card hidden">
+  <h2>Rules</h2>
+  <div class="rule-controls">
+    <label class="rule-filter-item">
+      Protocol
+      <select id="ruleProtocolFilter">
+        <option value="all">All</option>
+        <option value="tcp">TCP</option>
+        <option value="udp">UDP</option>
+      </select>
+    </label>
+    <label class="rule-filter-item">
+      Port Search
+      <input id="rulePortSearch" type="text" placeholder="e.g. 80, 44" />
+    </label>
+    <button id="ruleSortBtn" class="btn btn-ghost rule-sort-btn" type="button">Sort Port: ASC</button>
+  </div>
+  <div class="rules">
+    <div class="rule-row rule-head">
+      <div>Port</div>
+      <div>Protocol</div>
+      <div>Policy</div>
+      <div>Direction</div>
+    </div>
+    <div id="rules" class="rules-body"></div>
+  </div>
+</section>
+
+    <section id="logCard" class="card hidden">
+      <h2>执行日志</h2>
+      <pre id="log" class="log">等待操作...</pre>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+
+</html>
