@@ -26,6 +26,10 @@
   - 记录每次执行的 UFW 命令
   - 输出命令耗时、成功/失败、stderr
 
+预览：
+![Screenshot_1](https://github.com/35097602/UFWWebPortManager/blob/master/screenshot1.png?raw=true)
+![Screenshot_2](https://github.com/35097602/UFWWebPortManager/blob/master/screenshot2.png?raw=true)
+
 ---
 
 ## 2. 技术栈
